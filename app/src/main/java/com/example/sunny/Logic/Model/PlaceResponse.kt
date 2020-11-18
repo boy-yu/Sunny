@@ -1,14 +1,16 @@
 package com.example.sunny.Logic.Model
 
-import android.location.Location
 import com.google.gson.annotations.SerializedName
 
-/**数据模型*/
-data class PlaceResponse(val status: String, val places: List<Place>)
+/**查询全球城市
+ * 获取全球城市的数据模型
+ */
+class PlaceResponse(val status: String, val places: List<Place>)
 
-data class Place(
-    val name: String, val location: Location,
+class Place(
+    val name: String,
+    val location: Location,
     @SerializedName("formatted_address") val address: String
 )
 
-data class Location(val lng: String, val lat: String)
+class Location(val lng: String, val lat: String)
