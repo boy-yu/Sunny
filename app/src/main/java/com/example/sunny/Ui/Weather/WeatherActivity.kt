@@ -22,17 +22,21 @@ import kotlinx.android.synthetic.main.life_index.*
 import kotlinx.android.synthetic.main.now.*
 import java.text.SimpleDateFormat
 import java.util.*
-
+/**25.请求天气数据,并将数据展示到界面上*/
 class WeatherActivity : AppCompatActivity() {
 
     val viewModel by lazy { ViewModelProvider(this).get(WeatherViewModel::class.java) }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        //展示界面
         setContentView(R.layout.activity_weather)
+        //隐藏标题
         supportActionBar?.hide()
 
+        //从Intent中提取经纬度和地区名并赋值到WeatherViewModel的相应变量中
         if (viewModel.locationLng.isEmpty()) {
             viewModel.locationLng = intent.getStringExtra("location_lng") ?: ""
         }
@@ -42,11 +46,14 @@ class WeatherActivity : AppCompatActivity() {
         if (viewModel.placeName.isEmpty()) {
             viewModel.placeName = intent.getStringExtra("place_name") ?: ""
         }
+
+        //对weatherLiveData进行观察
         viewModel.weatherLiveData.observe(this, Observer { result ->
             val weather = result.getOrNull()
-            if (weather != null) {
+            if (weather != null) {//当获取到服务器时
+                //调用showWeatherInfo()方法进行解析与展示
                 showWeatherInfo(weather)
-            } else {
+            } else {//否则弹出提示
                 Toast.makeText(this, "无法成功获取天气信息", Toast.LENGTH_SHORT).show()
                 result.exceptionOrNull()?.printStackTrace()
             }
@@ -58,10 +65,12 @@ class WeatherActivity : AppCompatActivity() {
         swipeRefresh.setOnRefreshListener {
             refreshWeather()
         }
-        /***------------------切换城市按钮------------------***/
+        /***------------------(选择城市)滑动菜单逻辑处理------------------***/
         navBtn.setOnClickListener {
+            //打开滑动菜单
             drawerLayout.openDrawer(GravityCompat.START)
         }
+        //监听DrawerLayout的状态
         drawerLayout.addDrawerListener(object : DrawerLayout.DrawerListener {
             override fun onDrawerStateChanged(newState: Int) {}
 
@@ -70,6 +79,7 @@ class WeatherActivity : AppCompatActivity() {
             override fun onDrawerOpened(drawerView: View) {}
 
             override fun onDrawerClosed(drawerView: View) {
+                //滑动菜单被隐藏的时候输入法也药隐藏
                 val manager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 manager.hideSoftInputFromWindow(drawerView.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
             }
@@ -82,7 +92,7 @@ class WeatherActivity : AppCompatActivity() {
     }
     /**------------------------------------------------------------------------**/
 
-
+    //添加数据
     private fun showWeatherInfo(weather: Weather) {
         placeName.text = viewModel.placeName
         val realtime= weather.realtime
@@ -94,9 +104,12 @@ class WeatherActivity : AppCompatActivity() {
         val currentPM25Text = "空气指数 ${realtime.airQuality.aqi.chn.toInt()}"
         currentAQI.text = currentPM25Text
         nowLayout.setBackgroundResource(getSky(realtime.skycon).bg)
+
         // 填充forecast.xml布局中的数据
         forecastLayout.removeAllViews()
         val days = daily.skycon.size
+
+        //循环处理每天的天气信息,在循环中动态加载forecast_item布局并设置响应的数据
         for (i in 0 until days) {
             val skycon = daily.skycon[i]
             val temperature = daily.temperature[i]
@@ -115,6 +128,7 @@ class WeatherActivity : AppCompatActivity() {
             temperatureInfo.text = tempText
             forecastLayout.addView(view)
         }
+
         // 填充life_index.xml布局中的数据
         val lifeIndex = daily.lifeIndex
         coldRiskText.text = lifeIndex.coldRisk[0].desc

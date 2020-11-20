@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--21.未来天气信息-->
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -14,6 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <!--显示预报-->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -24,6 +26,7 @@
             android:textColor="?android:attr/textColorPrimary"
             android:textSize="20sp"/>
 
+        <!--详细预报的布局-->
         <LinearLayout
             android:id="@+id/forecastLayout"
             android:orientation="vertical"

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--20.当前天气信息-->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/nowLayout"
     android:layout_width="match_parent"
@@ -11,23 +12,24 @@
         android:layout_height="70dp"
         android:fitsSystemWindows="true">
 
+        <!--切换城市按钮-->
         <Button
             android:id="@+id/navBtn"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginStart="15dp"
             android:layout_gravity="center_vertical"
+            android:layout_marginStart="15dp"
             android:background="@drawable/ic_home" />
-
+        <!--显示当前城市-->
         <TextView
             android:id="@+id/placeName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginStart="60dp"
             android:layout_marginEnd="60dp"
-            android:layout_gravity="center"
-            android:singleLine="true"
             android:ellipsize="middle"
+            android:singleLine="true"
             android:textColor="#fff"
             android:textSize="22sp" />
 
@@ -39,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:orientation="vertical">
-
+        <!--温度-->
         <TextView
             android:id="@+id/currentTemp"
             android:layout_width="wrap_content"
@@ -53,22 +55,22 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp">
-
+            <!--天气情况-->
             <TextView
                 android:id="@+id/currentSky"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#fff"
                 android:textSize="18sp" />
-
+            <!--分割线-->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="13dp"
+                android:text="|"
                 android:textColor="#fff"
-                android:textSize="18sp"
-                android:text="|" />
-
+                android:textSize="18sp" />
+            <!--空气指数-->
             <TextView
                 android:id="@+id/currentAQI"
                 android:layout_width="wrap_content"

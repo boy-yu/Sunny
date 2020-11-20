@@ -2,7 +2,7 @@ package com.example.sunny.Logic.Model
 
 import com.example.sunny.R
 
-/**天气图标*/
+/**24.天气情况图标*/
 class Sky (val info: String, val icon: Int, val bg: Int)
 
 private val sky = mapOf(
@@ -30,6 +30,7 @@ private val sky = mapOf(
     "DUST" to Sky("浮尘", R.drawable.ic_fog, R.drawable.bg_fog)
 )
 
+//获取对应的Sky对象
 fun getSky(skycon: String): Sky {
     return sky[skycon] ?: sky["CLEAR_DAY"]!!
 }
