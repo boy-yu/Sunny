@@ -30,26 +30,30 @@ import java.util.*
 data class DailyResponse(val status: String, val result: Result) {
     /**定义在DailyResponse内部,防止出现和其它接口的数据模型类有同名冲突的情况*/
 
-    class Result(val daily: Daily)
+    data class Result(val daily: Daily)
 
     //用List集合对JSON中的数组元素进行映射
-    class Daily(
+    data class Daily(
+        val astro: List<Astro>,
         val temperature: List<Temperature>,
         val skycon: List<Skycon>,
         @SerializedName("life_index") val lifeIndex: LifeIndex
     )
+    data class Astro(val sunrise: Time, val sunset: Time)
 
-    class Temperature(val max: Float, val min: Float)
+    data class Time(val time: String)
 
-    class Skycon(val value: String, val date: Date)
+    data class Temperature(val max: Float, val min: Float)
+
+    data class Skycon(val value: String, val date: Date)
 
     //用List集合对JSON中的数组元素进行映射
-    class LifeIndex(
+    data class LifeIndex(
         val coldRisk: List<LifeDescription>,
         val carWashing: List<LifeDescription>,
         val ultraviolet: List<LifeDescription>,
         val dressing: List<LifeDescription>
     )
 
-    class LifeDescription(val desc: String)
+    data class LifeDescription(val desc: String)
 }

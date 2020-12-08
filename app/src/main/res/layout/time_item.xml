@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="100dp"
+    android:layout_height="80dp"
+    android:layout_margin="5dp"
+    android:orientation="vertical">
+
+    <!--时间-->
+    <TextView
+        android:id="@+id/timeInfo"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal" />
+
+    <!--天气图标描述-->
+    <ImageView
+        android:id="@+id/tubiao"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content" />
+
+    <!--天气文字描述-->
+    <TextView
+        android:id="@+id/wenzi"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal" />
+
+    <!--温度区间-->
+    <TextView
+        android:id="@+id/wendu"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal" />
+
+</LinearLayout>

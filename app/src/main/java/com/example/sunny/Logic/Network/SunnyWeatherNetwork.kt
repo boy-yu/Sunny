@@ -21,6 +21,9 @@ object SunnyWeatherNetwork {
     suspend fun getRealtimeWeather(lng: String, lat: String) =
         weatherService.getRealtimeWeather(lng, lat).await()
 
+    suspend fun getHourlyWeather(lng: String, lat: String) =
+        weatherService.getHourlyWeather(lng, lat).await()
+
     /***********************************************************************************/
 
     /********************5.对PlaceService接口进行封装********************/

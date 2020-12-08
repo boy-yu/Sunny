@@ -44,26 +44,37 @@ object Repository {
             val deferredRealtime = async {//在async函数中发起网络请求
                 SunnyWeatherNetwork.getRealtimeWeather(lng, lat)
             }
-            //获取未来几天的天气信息
+            //获取未来15天的天气信息
             val deferredDaily = async {//在async函数中发起网络请求
                 SunnyWeatherNetwork.getDailyWeather(lng, lat)
             }
+            //获取未来24小时的天气信息
+            val deferredHourly = async { //在async函数中发起网络请求
+                SunnyWeatherNetwork.getHourlyWeather(lng, lat)
+            }
+
 
             //保证两个网络请求都成功响应之后才会执行下一步
             val realtimeResponse = deferredRealtime.await()
             val dailyResponse = deferredDaily.await()
+            val hourlyResponse = deferredHourly.await()
 
 
-            if (realtimeResponse.status == "ok" && dailyResponse.status == "ok") {//判断两个的状态是否都为ok
+            if (realtimeResponse.status == "ok" && dailyResponse.status == "ok" && hourlyResponse.status == "ok") {//判断两个的状态是否都为ok
                 //将realtime和daily的对象取出并封装到Weather对象中
-                val weather = Weather(realtimeResponse.result.realtime, dailyResponse.result.daily)
+                val weather = Weather(
+                    realtimeResponse.result.realtime,
+                    dailyResponse.result.daily,
+                    hourlyResponse.result.hourly
+                )
                 //使用Result.success()方法包装weather对象
                 Result.success(weather)
             } else {//如果服务器想想也的状态不是ok
                 Result.failure(//包装一个异常信息
                     RuntimeException(
                         "realtime response status is ${realtimeResponse.status}" +
-                                "daily response status is ${dailyResponse.status}"
+                                "daily response status is ${dailyResponse.status}" +
+                                "hourly response status is ${hourlyResponse.status}"
                     )
                 )
             }
@@ -71,7 +82,6 @@ object Repository {
     }
 
     /****************************************************************************************************/
-
 
 
     private fun <T> fire(context: CoroutineContext, block: suspend () -> Result<T>) =

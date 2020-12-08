@@ -1,19 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?><!--21.未来天气信息-->
-<!--21.未来天气信息-->
-<com.google.android.material.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<!--逐时天气信息-->
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="15dp"
-    android:layout_marginRight="15dp"
     android:layout_marginTop="15dp"
+    android:layout_marginRight="15dp"
     app:cardCornerRadius="4dp">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <!--显示预报-->
         <TextView
@@ -22,18 +21,21 @@
             android:layout_marginStart="15dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
-            android:text="未来15日天气"
+            android:text="24小时天气预报"
             android:textColor="?android:attr/textColorPrimary"
-            android:textSize="20sp"/>
+            android:textSize="20sp" />
 
-        <!--详细预报的布局-->
-        <LinearLayout
-            android:id="@+id/forecastLayout"
-            android:orientation="vertical"
+        <!--支持左右滑动-->
+        <HorizontalScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </LinearLayout>
+            android:layout_height="match_parent">
 
+            <LinearLayout
+                android:id="@+id/timeLayout"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:orientation="horizontal" />
+        </HorizontalScrollView>
     </LinearLayout>
 
 </com.google.android.material.card.MaterialCardView>

@@ -20,13 +20,13 @@ import com.google.gson.annotations.SerializedName
  * "place_id":"a-B000A83C36"}]}
  */
 //                      状态(ok表示成功)     JSON数组(包含几个与我们查询的关键字关键系度比较高的地区信息)
-class PlaceResponse(val status: String, val places: List<Place>)
+data class PlaceResponse(val status: String, val places: List<Place>)
 
-class Place(
+data class Place(
     val name: String,//该地区的名字
     val location: Location,//该地区的经纬度
     //转译成Kotlin能识别的对象名
     @SerializedName("formatted_address") val address: String//该地区的地址
 )
 //地区的经纬度
-class Location(val lng: String, val lat: String)
+data class Location(val lng: String, val lat: String)
